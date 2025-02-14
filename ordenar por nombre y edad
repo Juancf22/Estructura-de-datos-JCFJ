@@ -1,0 +1,53 @@
+
+class Persona {
+    String nombre;
+    int edad;
+
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + " (" + edad + ")";
+    }
+}
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+
+public class OrdenarPersonasNombre {
+    public static void main(String[] args) {
+        Persona[] personas = {
+            new Persona("Roberto", 30),
+            new Persona("Fernando", 25),
+            new Persona("Juan", 25),
+            new Persona("Camilo", 40),
+            new Persona("Bernardo", 22),
+            new Persona("Dario", 35),
+            new Persona("Elizabeth", 28),
+            new Persona("Farid", 32),
+            new Persona("Gabriel", 27),
+            new Persona("Hernan", 45)
+        };
+
+
+        Arrays.sort(personas, new Comparator<Persona>() {
+            @Override
+            public int compare(Persona p1, Persona p2) {
+                int cmp = p1.nombre.compareTo(p2.nombre);
+                if (cmp == 0) {
+                    cmp = Integer.compare(p1.edad, p2.edad);
+                }
+                return cmp;
+            }
+        });
+
+
+        for (Persona p : personas) {
+            System.out.println(p);
+        }
+    }
+}
