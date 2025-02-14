@@ -1,0 +1,15 @@
+public class CompararNombres {
+    public static void main(String[] args) {
+        String persona1 = "Ana";
+        String persona2 = "Carlos";
+        String persona3 = "Ana";
+
+        // Comparación usando compareTo()
+        int comparacion = persona1.compareTo(persona2);
+        if (comparacion == 0) {
+            System.out.println("El nombre \"" + persona1 + "\" es igual a \"" + persona2 + "\".");
+        } else if (comparacion < 0) {
+            System.out.println("El nombre \"" + persona1 + "\" es menor que \"" + persona2 + "\".");
+        } else {
+            System.out.println("El nombre \"" + persona1 + "\" es mayor que \"" + persona2 + "\".");
+        }
