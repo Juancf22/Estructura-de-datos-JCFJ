@@ -1,0 +1,43 @@
+public class BurbujaObjetos
+{
+    public static void main(String[] args)
+    {
+        // Declarar arreglo desordenado:
+        int[] desordenado = {15, 8, 7, 9, 5, 1, 0, 4, 10, 3};
+
+        // Declarar arreglo que va a guardar los elementos ordenados con Insertion Sort:
+        int[] ordenado = insertSort(desordenado);
+
+        // Ordenar y mostrar:
+        for(int i = 0; i < ordenado.length; i++)
+            System.out.printf("%d,", ordenado[i]);
+    }
+
+    /**
+     * Ordenamiento Insertion Sort de números enteros
+     * @param arr, que corresponde a un arreglo de enteros donde los elementos pueden estar desordenados
+     * @return el arreglo ordenado en orden ascendente
+     */
+    public static int[] insertSort(int[] arr)
+    {
+        int n = arr.length;
+        int[] ordenado = arr.clone(); // Hacemos una copia del arreglo original
+
+        // Empezamos desde el segundo elemento, porque el primero ya está considerado "ordenado"
+        for (int i = 1; i < n; i++) {
+            int key = ordenado[i]; // Guardamos el valor a insertar
+            int j = i - 1;
+
+            // Mover los elementos mayores que 'key' una posición hacia la derecha
+            while (j >= 0 && ordenado[j] > key) {
+                ordenado[j + 1] = ordenado[j]; // Desplazamos
+                j--; // Continuamos revisando el siguiente elemento
+            }
+
+            // Colocamos 'key' en su posición correcta
+            ordenado[j + 1] = key;
+        }
+
+        return ordenado;
+    }
+}
