@@ -1,0 +1,58 @@
+public class OrdenamientoObjetos {
+
+    public static void main(String[] args)
+    {
+        OrdenamientoObjetos pruebaOrdenamiento = new OrdenamientoObjetos();
+        pruebaOrdenamiento.probarOrdenamientos();
+    }
+
+    public OrdenamientoObjetos(){}
+
+    public void probarOrdenamientos()
+    {
+        // Crear 4 personas con el atributo edad:
+        Persona persona1 = new Persona(62, "Juan");
+        Persona persona2 = new Persona(63, "Camilo");
+        Persona persona3 = new Persona(45, "Juanes");
+        Persona persona4 = new Persona(25, "Marcos");
+        Persona persona5 = new Persona(19, "Martin");
+
+        // Comparar las personas:
+        if(persona1.compareTo(persona2) > 0)
+            System.out.println("La persona 1 (Juan) es mayor que la persona 2 (Camilo) por edad.");
+        else if(persona1.compareTo(persona2) < 0)
+            System.out.println("La persona 1 (Juan) es menor que la persona 2 (Camilo) por edad.");
+        else
+            System.out.println("La persona 1 (Juan) tiene la misma edad que la persona 2 (Camilo).");
+
+        // Crear un arreglo desordenado de personas:
+        Persona[] personas = {persona1, persona2, persona3, persona4, persona5};
+
+        // Ordenar el arreglo usando el algoritmo de Burbuja:
+        burbuja(personas);
+
+        // Mostrar el arreglo ordenado:
+        System.out.println("\nPersonas ordenadas por edad:");
+        for(Persona persona : personas) {
+            System.out.println(persona);
+        }
+    }
+
+    /**
+     * Ordenamiento Burbuja de personas por edad.
+     * @param arr Arreglo de objetos Persona
+     */
+    public void burbuja(Persona[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (arr[j].compareTo(arr[j + 1]) > 0) {
+                    // Intercambiar personas
+                    Persona temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+}
