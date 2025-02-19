@@ -2,13 +2,13 @@ class Persona implements Comparable<Persona> {
     private int edad;
     private String nombre;
 
-    // Constructor
+   
     public Persona(int edad, String nombre) {
         this.edad = edad;
         this.nombre = nombre;
     }
 
-    // Getters
+   
     public int getEdad() {
         return edad;
     }
@@ -17,13 +17,13 @@ class Persona implements Comparable<Persona> {
         return nombre;
     }
 
-    // Implementación del método compareTo de Comparable
+    
     @Override
     public int compareTo(Persona otraPersona) {
         return Integer.compare(this.edad, otraPersona.getEdad());
     }
 
-    // Método toString para imprimir la Persona
+    
     @Override
     public String toString() {
         return nombre + " (" + edad + " años)";
