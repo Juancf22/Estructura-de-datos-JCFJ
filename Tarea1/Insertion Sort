@@ -1,0 +1,53 @@
+class Producto {
+    String nombre;
+    String categoria;
+    double precio;
+
+    public Producto(String nombre, String categoria, double precio) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Producto: " + nombre + " | Categoría: " + categoria + " | Precio: $" + precio;
+    }
+}
+public class OrdenarProductos {
+    public static void insercion(Producto[] productos) {
+        int n = productos.length;
+        for (int i = 1; i < n; i++) {
+            Producto clave = productos[i];
+            int j = i - 1;
+            while (j >= 0 && productos[j].precio > clave.precio) {
+                productos[j + 1] = productos[j];
+                j--;
+            }
+            productos[j + 1] = clave;
+        }
+    }
+
+    public static void main(String[] args) {
+        Producto[] productos = {
+            new Producto("Portatil", "Electrónica", 120.500),
+            new Producto("Celular", "Electrónica", 850.750),
+            new Producto("Audifonos", "Accesorios", 115.000),
+            new Producto("Monitor", "Electrónica", 350.000),
+            new Producto("Mouse", "Accesorios", 250.990),
+            new Producto("Teclado", "Accesorios", 450.000)
+        };
+
+        System.out.println("Productos antes de ordenar:");
+        for (Producto p : productos) {
+            System.out.println(p);
+        }
+
+        insercion(productos);
+
+        System.out.println("\nProductos después de ordenar por precio:");
+        for (Producto p : productos) {
+            System.out.println(p);
+        }
+    }
+}
