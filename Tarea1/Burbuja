@@ -33,12 +33,12 @@ public static void burbuja(Producto[] productos) {
 
 public static void main(String[] args) {
     Producto[] productos = {
-        new Producto("Portatil", "Electrónica", 12000.50),
-        new Producto("Celular", "Electrónica", 8550.75),
-        new Producto("Audifonos", "Accesorios", 1150.00),
-        new Producto("Monitor", "Electrónica", 3300.00),
-        new Producto("Mouse", "Accesorios", 250.99),
-        new Producto("Teclado", "Accesorios", 450.50)
+        new Producto("Portatil", "Electrónica", 120.500),
+        new Producto("Celular", "Electrónica", 855.750),
+        new Producto("Audifonos", "Accesorios", 115.000),
+        new Producto("Monitor", "Electrónica", 330.000),
+        new Producto("Mouse", "Accesorios", 250.990),
+        new Producto("Teclado", "Accesorios", 450.500)
     };
 
     System.out.println("Productos antes de ordenar:");
