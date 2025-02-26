@@ -1,38 +1,55 @@
-import java.util.Arrays;
+package tareauno;
+
 import java.util.Scanner;
+
+class Producto {
+    int codigo;
+    double precio;
+    String nombre;
+
+    public Producto(int codigo, double precio, String nombre) {
+        this.codigo = codigo;
+        this.precio = precio;
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "Código: " + codigo + ", Nombre: " + nombre + ", Precio: $" + precio;
+    }
+}
+
 public class OrdenamientoBurbuja {
-    
-    public static void ordenarPorBurbuja(Productos[] productos) {
+
+    public static void ordenarPorBurbuja(Producto[] productos) {
         int n = productos.length;
-        
-        
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
-               
                 if (productos[j].codigo > productos[j + 1].codigo) {
-                    Productos temp = productos[j];
+                    Producto temp = productos[j];
                     productos[j] = productos[j + 1];
                     productos[j + 1] = temp;
-                } 
-               
-                else if (productos[j].codigo == productos[j + 1].codigo) {
-                    if (productos[j].precio > productos[j + 1].precio) {
-                        Productos temp = productos[j];
-                        productos[j] = productos[j + 1];
-                        productos[j + 1] = temp;
-                    }
                 }
             }
         }
     }
 
+    public static Producto buscarPorCodigo(Producto[] productos, int codigoBusqueda) {
+        for (Producto producto : productos) {
+            if (producto.codigo == codigoBusqueda) {
+                return producto;
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         // Crear un array de productos
-        Productos[] productos = {
-            new Productos(3005, 3.500, "Cafe"),
-            new Productos(1205, 9.200, "Fresas con crema"),
-            new Productos(2002, 13.500, "Wafles"),
-            new Productos(4012, 18.000, "Crepe")
+        Producto[] productos = {
+            new Producto(3005, 3500.00, "Café"),
+            new Producto(1205, 9200.00, "Fresas con crema"),
+            new Producto(2002, 13500.00, "Waffles"),
+            new Producto(4012, 18000.00, "Crepe")
         };
 
         // Ordenar los productos usando burbuja
@@ -40,7 +57,9 @@ public class OrdenamientoBurbuja {
 
         // Mostrar productos ordenados
         System.out.println("Productos ordenados:");
-        System.out.println(Arrays.toString(productos));
+        for (Producto producto : productos) {
+            System.out.println(producto);
+        }
 
         // Crear el objeto Scanner para leer la entrada del usuario
         Scanner scanner = new Scanner(System.in);
@@ -50,21 +69,16 @@ public class OrdenamientoBurbuja {
         int codigoBusqueda = scanner.nextInt(); // Leer el código ingresado
 
         // Realizar la búsqueda lineal por código
-        Productos productoEncontrado = OrdenamientoBurbuja.buscarPorCodigo(productos, codigoBusqueda);
-        
-                // Mostrar el resultado de la búsqueda
-                if (productoEncontrado != null) {
-                    System.out.println("\nProducto encontrado: " + productoEncontrado);
-                } else {
-                    System.out.println("\nProducto con código " + codigoBusqueda + " no encontrado.");
-                }
-        
-                // Cerrar el scanner
-                scanner.close();
-            }
-        
-            private static Productos buscarPorCodigo(Productos[] productos, int codigoBusqueda) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'buscarPorCodigo'");
-            }
+        Producto productoEncontrado = buscarPorCodigo(productos, codigoBusqueda);
+
+        // Mostrar el resultado de la búsqueda
+        if (productoEncontrado != null) {
+            System.out.println("\nProducto encontrado: " + productoEncontrado);
+        } else {
+            System.out.println("\nProducto con código " + codigoBusqueda + " no encontrado.");
+        }
+
+        // Cerrar el scanner
+        scanner.close();
+    }
 }
