@@ -1,53 +1,88 @@
-class Producto {
-    String nombre;
-    String categoria;
-    double precio;
+package tareauno;
 
-    public Producto(String nombre, String categoria, double precio) {
-        this.nombre = nombre;
-        this.categoria = categoria;
+import java.util.Scanner;
+
+class Producto {
+    int codigo;
+    double precio;
+    String nombre;
+
+    public Producto(int codigo, double precio, String nombre) {
+        this.codigo = codigo;
         this.precio = precio;
+        this.nombre = nombre;
     }
 
     @Override
     public String toString() {
-        return "Producto: " + nombre + " | Categoría: " + categoria + " | Precio: $" + precio;
+        return "Código: " + codigo + ", Nombre: " + nombre + ", Precio: $" + precio;
     }
 }
-public class OrdenarProductos {
-    public static void insercion(Producto[] productos) {
+
+public class OrdenamientoInsercion {
+
+    // Algoritmo de ordenamiento por inserción
+    public static void ordenarPorInsercion(Producto[] productos) {
         int n = productos.length;
         for (int i = 1; i < n; i++) {
-            Producto clave = productos[i];
+            Producto key = productos[i];
             int j = i - 1;
-            while (j >= 0 && productos[j].precio > clave.precio) {
+
+            // Mover elementos mayores que key una posición adelante
+            while (j >= 0 && productos[j].codigo > key.codigo) {
                 productos[j + 1] = productos[j];
-                j--;
+                j = j - 1;
             }
-            productos[j + 1] = clave;
+            productos[j + 1] = key;
         }
+    }
+
+    // Búsqueda lineal de un producto por código
+    public static Producto buscarPorCodigo(Producto[] productos, int codigoBusqueda) {
+        for (Producto producto : productos) {
+            if (producto.codigo == codigoBusqueda) {
+                return producto;
+            }
+        }
+        return null;
     }
 
     public static void main(String[] args) {
+        // Crear un array de productos
         Producto[] productos = {
-            new Producto("Portatil", "Electrónica", 120.500),
-            new Producto("Celular", "Electrónica", 850.750),
-            new Producto("Audifonos", "Accesorios", 115.000),
-            new Producto("Monitor", "Electrónica", 350.000),
-            new Producto("Mouse", "Accesorios", 250.990),
-            new Producto("Teclado", "Accesorios", 450.000)
+            new Producto(3005, 3500.00, "Café"),
+            new Producto(1205, 9200.00, "Fresas con crema"),
+            new Producto(2002, 13500.00, "Waffles"),
+            new Producto(4012, 18000.00, "Crepe")
         };
 
-        System.out.println("Productos antes de ordenar:");
-        for (Producto p : productos) {
-            System.out.println(p);
+        // Ordenar los productos usando inserción
+        ordenarPorInsercion(productos);
+
+        // Mostrar productos ordenados
+        System.out.println("Productos ordenados:");
+        for (Producto producto : productos) {
+            System.out.println(producto);
         }
 
-        insercion(productos);
+        // Crear el objeto Scanner para leer la entrada del usuario
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\nProductos después de ordenar por precio:");
-        for (Producto p : productos) {
-            System.out.println(p);
+        // Pedir al usuario que ingrese un código de producto para buscar
+        System.out.print("\nIngrese el código del producto que desea buscar: ");
+        int codigoBusqueda = scanner.nextInt(); // Leer el código ingresado
+
+        // Realizar la búsqueda lineal por código
+        Producto productoEncontrado = buscarPorCodigo(productos, codigoBusqueda);
+
+        // Mostrar el resultado de la búsqueda
+        if (productoEncontrado != null) {
+            System.out.println("\nProducto encontrado: " + productoEncontrado);
+        } else {
+            System.out.println("\nProducto con código " + codigoBusqueda + " no encontrado.");
         }
+
+        // Cerrar el scanner
+        scanner.close();
     }
 }
