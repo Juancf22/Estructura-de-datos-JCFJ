@@ -1,39 +1,30 @@
 package tareauno;
 
-import java.util.Scanner;
-
-class Producto {
+public class Producto {
     int codigo;
-    double precio;
     String nombre;
+    double precio;
+    int cantidad;
 
-    public Producto(int codigo, double precio, String nombre) {
+    public Producto(int codigo, String nombre, double precio, int cantidad) {
         this.codigo = codigo;
-        this.precio = precio;
         this.nombre = nombre;
+        this.precio = precio;
+        this.cantidad = cantidad;
     }
 
     @Override
     public String toString() {
-        return "Código: " + codigo + ", Nombre: " + nombre + ", Precio: $" + precio;
+        return "Código: " + codigo + ", Nombre: " + nombre + ", Precio: $" + precio + ", Cantidad: " + cantidad;
     }
 }
+package tareauno;
 
-public class OrdenamientoBurbuja {
+import java.util.Scanner;
 
-    public static void ordenarPorBurbuja(Producto[] productos) {
-        int n = productos.length;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (productos[j].codigo > productos[j + 1].codigo) {
-                    Producto temp = productos[j];
-                    productos[j] = productos[j + 1];
-                    productos[j + 1] = temp;
-                }
-            }
-        }
-    }
+public class GestionProductos {
 
+    // Método para buscar un producto por código (búsqueda lineal)
     public static Producto buscarPorCodigo(Producto[] productos, int codigoBusqueda) {
         for (Producto producto : productos) {
             if (producto.codigo == codigoBusqueda) {
@@ -43,30 +34,69 @@ public class OrdenamientoBurbuja {
         return null;
     }
 
+    // Método para ordenar los productos por precio (usando burbuja)
+    public static void ordenarPorPrecio(Producto[] productos) {
+        int n = productos.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (productos[j].precio > productos[j + 1].precio) {
+                    Producto temp = productos[j];
+                    productos[j] = productos[j + 1];
+                    productos[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    // Método para ordenar los productos por cantidad (usando burbuja)
+    public static void ordenarPorCantidad(Producto[] productos) {
+        int n = productos.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (productos[j].cantidad > productos[j + 1].cantidad) {
+                    Producto temp = productos[j];
+                    productos[j] = productos[j + 1];
+                    productos[j + 1] = temp;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         // Crear un array de productos
         Producto[] productos = {
-            new Producto(3005, 3500.00, "Café"),
-            new Producto(1205, 9200.00, "Fresas con crema"),
-            new Producto(2002, 13500.00, "Waffles"),
-            new Producto(4012, 18000.00, "Crepe")
+            new Producto(3005, "Café", 3500.00, 10),
+            new Producto(1205, "Fresas con crema", 9200.00, 5),
+            new Producto(2002, "Waffles", 13500.00, 8),
+            new Producto(4012, "Crepe", 18000.00, 12)
         };
 
-        // Ordenar los productos usando burbuja
-        ordenarPorBurbuja(productos);
+        Scanner scanner = new Scanner(System.in);
+
+        // Opción para ordenar los productos
+        System.out.println("Seleccione el criterio de ordenamiento:");
+        System.out.println("1. Ordenar por Precio");
+        System.out.println("2. Ordenar por Cantidad");
+        int opcion = scanner.nextInt();
+
+        if (opcion == 1) {
+            ordenarPorPrecio(productos);
+            System.out.println("\nProductos ordenados por precio:");
+        } else if (opcion == 2) {
+            ordenarPorCantidad(productos);
+            System.out.println("\nProductos ordenados por cantidad:");
+        } else {
+            System.out.println("Opción no válida. Mostrando productos sin ordenar.");
+        }
 
         // Mostrar productos ordenados
-        System.out.println("Productos ordenados:");
         for (Producto producto : productos) {
             System.out.println(producto);
         }
 
-        // Crear el objeto Scanner para leer la entrada del usuario
-        Scanner scanner = new Scanner(System.in);
-
         // Pedir al usuario que ingrese un código de producto para buscar
         System.out.print("\nIngrese el código del producto que desea buscar: ");
-        int codigoBusqueda = scanner.nextInt(); // Leer el código ingresado
+        int codigoBusqueda = scanner.nextInt();
 
         // Realizar la búsqueda lineal por código
         Producto productoEncontrado = buscarPorCodigo(productos, codigoBusqueda);
@@ -78,7 +108,6 @@ public class OrdenamientoBurbuja {
             System.out.println("\nProducto con código " + codigoBusqueda + " no encontrado.");
         }
 
-        // Cerrar el scanner
         scanner.close();
     }
 }
