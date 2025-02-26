@@ -1,44 +1,32 @@
 package tareauno;
 
-import java.util.Scanner;
-
-class Producto {
+public class Producto {
     int codigo;
-    double precio;
     String nombre;
+    double precio;
+    int cantidad;
 
-    public Producto(int codigo, double precio, String nombre) {
+    public Producto(int codigo, String nombre, double precio, int cantidad) {
         this.codigo = codigo;
-        this.precio = precio;
         this.nombre = nombre;
+        this.precio = precio;
+        this.cantidad = cantidad;
     }
 
     @Override
     public String toString() {
-        return "Código: " + codigo + ", Nombre: " + nombre + ", Precio: $" + precio;
+        return "Código: " + codigo + ", Nombre: " + nombre + ", Precio: $" + precio + ", Cantidad: " + cantidad;
     }
 }
+package tareauno;
 
-public class OrdenamientoInsercion {
+import java.util.ArrayList;
+import java.util.Scanner;
 
-    // Algoritmo de ordenamiento por inserción
-    public static void ordenarPorInsercion(Producto[] productos) {
-        int n = productos.length;
-        for (int i = 1; i < n; i++) {
-            Producto key = productos[i];
-            int j = i - 1;
+public class GestionProductos {
 
-            // Mover elementos mayores que key una posición adelante
-            while (j >= 0 && productos[j].codigo > key.codigo) {
-                productos[j + 1] = productos[j];
-                j = j - 1;
-            }
-            productos[j + 1] = key;
-        }
-    }
-
-    // Búsqueda lineal de un producto por código
-    public static Producto buscarPorCodigo(Producto[] productos, int codigoBusqueda) {
+    
+    public static Producto buscarPorCodigo(ArrayList<Producto> productos, int codigoBusqueda) {
         for (Producto producto : productos) {
             if (producto.codigo == codigoBusqueda) {
                 return producto;
@@ -47,42 +35,81 @@ public class OrdenamientoInsercion {
         return null;
     }
 
+    
+    public static void ordenarPorPrecio(ArrayList<Producto> productos) {
+        int n = productos.size();
+        for (int i = 1; i < n; i++) {
+            Producto key = productos.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && productos.get(j).precio > key.precio) {
+                productos.set(j + 1, productos.get(j));
+                j = j - 1;
+            }
+            productos.set(j + 1, key);
+        }
+    }
+
+    
+    public static void ordenarPorCantidad(ArrayList<Producto> productos) {
+        int n = productos.size();
+        for (int i = 1; i < n; i++) {
+            Producto key = productos.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && productos.get(j).cantidad > key.cantidad) {
+                productos.set(j + 1, productos.get(j));
+                j = j - 1;
+            }
+            productos.set(j + 1, key);
+        }
+    }
+
     public static void main(String[] args) {
-        // Crear un array de productos
-        Producto[] productos = {
-            new Producto(3005, 3500.00, "Café"),
-            new Producto(1205, 9200.00, "Fresas con crema"),
-            new Producto(2002, 13500.00, "Waffles"),
-            new Producto(4012, 18000.00, "Crepe")
-        };
 
-        // Ordenar los productos usando inserción
-        ordenarPorInsercion(productos);
+        ArrayList<Producto> productos = new ArrayList<>();
+        productos.add(new Producto(3005, "Café", 3500.00, 10));
+        productos.add(new Producto(1205, "Fresas con crema", 9200.00, 5));
+        productos.add(new Producto(2002, "Waffles", 13500.00, 8));
+        productos.add(new Producto(4012, "Crepe", 18000.00, 12));
 
-        // Mostrar productos ordenados
-        System.out.println("Productos ordenados:");
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.println("Seleccione el criterio de ordenamiento:");
+        System.out.println("1. Ordenar por Precio");
+        System.out.println("2. Ordenar por Cantidad");
+        int opcion = scanner.nextInt();
+
+        if (opcion == 1) {
+            ordenarPorPrecio(productos);
+            System.out.println("\nProductos ordenados por precio:");
+        } else if (opcion == 2) {
+            ordenarPorCantidad(productos);
+            System.out.println("\nProductos ordenados por cantidad:");
+        } else {
+            System.out.println("Opción no válida. Mostrando productos sin ordenar.");
+        }
+
+        
         for (Producto producto : productos) {
             System.out.println(producto);
         }
 
-        // Crear el objeto Scanner para leer la entrada del usuario
-        Scanner scanner = new Scanner(System.in);
-
-        // Pedir al usuario que ingrese un código de producto para buscar
+        
         System.out.print("\nIngrese el código del producto que desea buscar: ");
-        int codigoBusqueda = scanner.nextInt(); // Leer el código ingresado
+        int codigoBusqueda = scanner.nextInt();
 
-        // Realizar la búsqueda lineal por código
+        
         Producto productoEncontrado = buscarPorCodigo(productos, codigoBusqueda);
 
-        // Mostrar el resultado de la búsqueda
+        
         if (productoEncontrado != null) {
             System.out.println("\nProducto encontrado: " + productoEncontrado);
         } else {
             System.out.println("\nProducto con código " + codigoBusqueda + " no encontrado.");
         }
 
-        // Cerrar el scanner
         scanner.close();
     }
 }
