@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+public class MainBinarySearch { 
+
+    public static void main(String[] args) {
+        // Arreglo de prueba:
+        int[] testArray = { 1, 5, 8, 9, 12, 24, 50, 54, 88, 120, 200, 201, 1128 };
+
+        // Crear un objeto Scanner para leer la entrada del usuario
+        Scanner lector = new Scanner(System.in);
+
+        // Pedir al usuario que ingrese un número a buscar
+        System.out.print("Ingrese el número a buscar: ");
+        int elem = lector.nextInt();
+
+        // Cerrar el scanner
+        lector.close();
+
+        // Con búsqueda binaria iterativa:
+        int resul = busquedaBinariaIterativa(testArray, elem);
+        System.out.println("Resultado de la búsqueda iterativa: " + resul);
+
+        // Con búsqueda binaria recursiva:
+        int resul2 = busquedaBinariaRecursiva(testArray, elem, 0, testArray.length - 1);
+        System.out.println("Resultado de la búsqueda recursiva: " + resul2);
+    }
+
+    public static int busquedaBinariaIterativa(int[] arr, int objetivo) {
+        int izquierda = 0;
+        int derecha = arr.length - 1;
+
+        while (izquierda <= derecha) {
+            int medio = izquierda + (derecha - izquierda) / 2;
+
+            if (arr[medio] == objetivo) {
+                return medio;
+            }
+
+            if (arr[medio] < objetivo) {
+                izquierda = medio + 1;
+            } else {
+                derecha = medio - 1;
+            }
+        }
+
+        return -1;
+    }
+
+    public static int busquedaBinariaRecursiva(int[] arr, int objetivo, int izquierda, int derecha) {
+        if (izquierda > derecha) {
+            return -1;
+        }
+
+        int medio = izquierda + (derecha - izquierda) / 2;
+
+        if (arr[medio] == objetivo) {
+            return medio;
+        }
+
+        if (arr[medio] > objetivo) {
+            return busquedaBinariaRecursiva(arr, objetivo, izquierda, medio - 1);
+        }
+
+        return busquedaBinariaRecursiva(arr, objetivo, medio + 1, derecha);
+    }
+}
